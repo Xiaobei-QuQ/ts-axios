@@ -11,7 +11,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       headers,
       responseType,
       timeout,
-      cancelToken
+      cancelToken,
+      withCredentials
     } = config
 
     const request = new XMLHttpRequest()
@@ -20,6 +21,10 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         request.abort()
         reject(reason)
       })
+    }
+
+    if (withCredentials) {
+      request.withCredentials = true
     }
 
     if (responseType) {
